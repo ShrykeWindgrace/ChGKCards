@@ -1,0 +1,30 @@
+\documentclass[a4paper, 12pt]{article}
+% \usepackage[utf8]{inputenc}
+\usepackage{fontspec}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{fp}
+\usepackage{forloop}
+% \usepackage{etoolbox}
+\geometry{
+	total={210mm,297mm},
+	left=0mm,
+	% right=0mm,
+	% top=0mm,
+	bottom=0mm,
+}
+\topskip0pt
+
+\newcommand{\blNew}[2]{\noindent\fbox{\begin{minipage}[t][71.5mm][t]{50mm}\rotatebox[origin=rb]{90}{Вопрос:~#2}\vfill\rotatebox{90}{Команда:~#1}\end{minipage}}}%
+
+\newcommand{\totalteamsPO}{4}% total number of questions plus one
+\newcommand{\totalquestsPO}{37}% total number of questions plus one
+
+\begin{document}\setmainfont{Lucida Console}%
+\newcounter{teams}%number of teams
+\newcounter{quest}%questions
+% \newcounter{straw}%%number of additional blanks; printed without question numbers
+%NB! some printers like to add margins, so the final view will not be exactly the same as in preview
+\noindent\forloop{teams}{1}{\value{teams}<\totalteamsPO}{\noindent\forloop{quest}{1}{\value{quest}<\totalquestsPO}{\blNew{\theteams}{\thequest}\FPeval{\res}{(\theteams-1)*(\totalquestsPO-1)+\thequest}\FPeval{\resu}{trunc(\res-(4*trunc(\res/4,0)),0)}\FPifeq{\resu}{0}{\newline}\else{}\fi}}%
+\end{document}
