@@ -18,13 +18,14 @@
 
 \newcommand{\blNew}[2]{\noindent\fbox{\begin{minipage}[t][71.5mm][t]{50mm}\rotatebox[origin=rb]{90}{Вопрос:~#2}\vfill\rotatebox{90}{Команда:~#1}\end{minipage}}}%
 
-\newcommand{\totalteamsPO}{4}% total number of questions plus one
-\newcommand{\totalquestsPO}{37}% total number of questions plus one
+\newcommand{\totalteamsPO}{3}% total number of questions plus one
+\newcommand{\totalquestsPO}{14}% total number of questions plus one
+% \newcommand{\totalreservePO}{4}% total number of reserve blanks per team
 
 \begin{document}\setmainfont{Lucida Console}%
 \newcounter{teams}%number of teams
 \newcounter{quest}%questions
-% \newcounter{straw}%%number of additional blanks; printed without question numbers
+\newcounter{reserve}%number of additional blanks; printed without question numbers
 %NB! some printers like to add margins, so the final view will not be exactly the same as in preview
-\noindent\forloop{teams}{1}{\value{teams}<\totalteamsPO}{\noindent\forloop{quest}{1}{\value{quest}<\totalquestsPO}{\blNew{\theteams}{\thequest}\FPeval{\res}{(\theteams-1)*(\totalquestsPO-1)+\thequest}\FPeval{\resu}{trunc(\res-(4*trunc(\res/4,0)),0)}\FPifeq{\resu}{0}{\newline}\else{}\fi}}%
+\noindent\forloop{teams}{1}{\value{teams}<\totalteamsPO}{\noindent\forloop{quest}{1}{\value{quest}<\totalquestsPO}{\blNew{\theteams}{\thequest}\FPeval{\res}{(\theteams-1)*(\totalquestsPO-1)+\thequest}\FPeval{\resu}{trunc(\res-(4*trunc(\res/4,0)),0)}\FPifeq{\resu}{0}{\newline}\else{}\fi}}\newline\noindent\forloop{teams}{1}{\value{teams}<\totalteamsPO}{\forloop{reserve}{0}{\value{reserve}<4}{\blNew{\theteams}{}}\newline}
 \end{document}
