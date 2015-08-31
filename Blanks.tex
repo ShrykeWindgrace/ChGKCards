@@ -4,9 +4,9 @@
 \usepackage[russian]{babel}
 \usepackage{graphicx}
 \usepackage{geometry}
-\usepackage{fp}
+\usepackage[nomessages]{fp}
 \usepackage{forloop}
-% \usepackage{etoolbox}
+\usepackage{etoolbox}
 \geometry{
 	total={210mm,297mm},
 	left=0mm,
@@ -18,14 +18,28 @@
 
 \newcommand{\blNew}[2]{\noindent\fbox{\begin{minipage}[t][71.5mm][t]{50mm}\rotatebox[origin=rb]{90}{Вопрос:~#2}\vfill\rotatebox{90}{Команда:~#1}\end{minipage}}}%
 
-\newcommand{\totalteamsPO}{3}% total number of questions plus one
-\newcommand{\totalquestsPO}{14}% total number of questions plus one
+\newcommand{\totalteamsPO}{3}% total number of questions +1
+% \newcommand{\totalteamsPR}{3}% total number of questions
+\newcommand{\totalquestsPO}{14}% total number of questions+1
+% \newcommand{\totalquestsPR}{36}% total number of questions
 % \newcommand{\totalreservePO}{4}% total number of reserve blanks per team
 
+\newtoggle{printreserve}
+\togglefalse{printreserve}
+% \toggletrue{printreserve} %uncomment this line if you want to print reserve blanks for teams
+\newtoggle{printreserveTeamNumbers} %has no effect if printreserve==false. 
+\togglefalse{printreserveTeamNumbers}
+% \toggletrue{printreserveTeamNumbers} %uncomment this line if you want to print team numbers on reserve blanks
+
+
 \begin{document}\setmainfont{Lucida Console}%
+% \FPupn{totalteamsPOne}{8 1 +}%
+% \FPeval{\totalquestsPO}{\totalquests+1}%
 \newcounter{teams}%number of teams
 \newcounter{quest}%questions
 \newcounter{reserve}%number of additional blanks; printed without question numbers
+\newcounter{stepTZ}
+\setcounter{stepTZ}{0}
 %NB! some printers like to add margins, so the final view will not be exactly the same as in preview
-\noindent\forloop{teams}{1}{\value{teams}<\totalteamsPO}{\noindent\forloop{quest}{1}{\value{quest}<\totalquestsPO}{\blNew{\theteams}{\thequest}\FPeval{\res}{(\theteams-1)*(\totalquestsPO-1)+\thequest}\FPeval{\resu}{trunc(\res-(4*trunc(\res/4,0)),0)}\FPifeq{\resu}{0}{\newline}\else{}\fi}}\newline\noindent\forloop{teams}{1}{\value{teams}<\totalteamsPO}{\forloop{reserve}{0}{\value{reserve}<4}{\blNew{\theteams}{}}\newline}
+\noindent\forloop{teams}{1}{\value{teams}<\totalteamsPO}{\noindent\forloop{quest}{1}{\value{quest}<\totalquestsPO}{\blNew{\theteams}{\thequest}\stepcounter{stepTZ}\FPeval{\resu}{trunc(\thestepTZ-(4*trunc(\thestepTZ/4,0)),0)}\FPifeq{\resu}{0}{\newline}\else{}\fi}}\iftoggle{printreserve}{\newline\noindent\forloop{teams}{1}{\value{teams}<\totalteamsPO}{\forloop{reserve}{0}{\value{reserve}<4}{\blNew{\iftoggle{printreserveTeamNumbers}{\theteams}{}}{}}\newline}}{}
 \end{document}
