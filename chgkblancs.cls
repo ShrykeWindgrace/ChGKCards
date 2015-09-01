@@ -4,6 +4,7 @@
 \DeclareStringOption[4]{teams}
 \DeclareStringOption[13]{quests}
 \DeclareBoolOption{printreserve}
+\DeclareBoolOption{printteamsatall}
 \DeclareBoolOption{printreserveteamnumbers}
 \ProcessKeyvalOptions*
 \LoadClass[a4paper, 12pt]{article}
@@ -39,9 +40,13 @@
 \newtoggle{printreserveinner}
 \togglefalse{printreserveinner}
 \ifchgkblancs@printreserve\toggletrue{printreserveinner}\else\fi
+\newtoggle{printteamsatallinner}
+\togglefalse{printteamsatallinner}
+\ifchgkblancs@printteamsatall\toggletrue{printteamsatallinner}\else\fi
 \newtoggle{printreserveteamnumbersinner} %has no effect if printreserve==false. 
 \togglefalse{printreserveteamnumbersinner}
 \ifchgkblancs@printreserveteamnumbers\toggletrue{printreserveteamnumbersinner}\else\fi
+\newcommand{\teamoutput}{\iftoggle{printteamsatallinner}{\theteams}{}}
 % \toggletrue{printreserveTeamNumbers} %uncomment this line if you want to print team numbers on reserve blanks
 \newcommand{\printblancs}{\ifXeTeX\setmainfont{Lucida Console}\else\fi%
 % \FPupn{totalteamsPOne}{8 1 +}%
@@ -52,7 +57,7 @@
 \newcounter{stepTZ}
 \setcounter{stepTZ}{0}
 %NB! some printers like to add margins, so the final view will not be exactly the same as in preview
-\noindent\forloop{teams}{1}{\value{teams}<\totalteamsPO}{\noindent\forloop{quest}{1}{\value{quest}<\totalquestsPO}{\blNew{\theteams}{\thequest}\stepcounter{stepTZ}\FPeval{\resu}{trunc(\thestepTZ-(4*trunc(\thestepTZ/4,0)),0)}\FPifeq{\resu}{0}{\newline}\else{}\fi}}\iftoggle{printreserveinner}{\newline\noindent\forloop{teams}{1}{\value{teams}<\totalteamsPO}{\forloop{reserve}{0}{\value{reserve}<4}{\blNew{\iftoggle{printreserveteamnumbersinner}{\theteams}{}}{}}\newline}}{}}
+\noindent\forloop{teams}{1}{\value{teams}<\totalteamsPO}{\noindent\forloop{quest}{1}{\value{quest}<\totalquestsPO}{\blNew{\teamoutput}{\thequest}\stepcounter{stepTZ}\FPeval{\resu}{trunc(\thestepTZ-(4*trunc(\thestepTZ/4,0)),0)}\FPifeq{\resu}{0}{\newline}\else{}\fi}}\iftoggle{printreserveinner}{\newline\noindent\forloop{teams}{1}{\value{teams}<\totalteamsPO}{\forloop{reserve}{0}{\value{reserve}<4}{\blNew{\iftoggle{printreserveteamnumbersinner}{\theteams}{}}{}}\newline}}{}}
 
 \AtBeginDocument{\printblancs}
 
