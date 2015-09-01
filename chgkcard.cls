@@ -1,4 +1,4 @@
-\ProvidesClass{chgkblancs}[2015/08/31 v0.1 class for creating ChGK tournaments blanks]
+\ProvidesClass{chgkcard}[2015/08/31 v0.1 class for creating ChGK tournaments blanks]
 \RequirePackage{kvoptions}
 \RequirePackage{iftex}
 \DeclareStringOption[4]{teams}
