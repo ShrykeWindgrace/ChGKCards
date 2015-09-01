@@ -31,11 +31,11 @@
 }
 \topskip0pt
 
-\newcommand{\blNew}[2]{\noindent\fbox{\begin{minipage}[t][71.5mm][t]{50mm}\rotatebox[origin=rb]{90}{Вопрос:~#2}\vfill\rotatebox{90}{Команда:~#1}\end{minipage}}}%a card
+\newcommand{\blNew}[2]{\noindent\fbox{\begin{minipage}[t][71.5mm][t]{50mm}\rotatebox[origin=rb]{90}{Вопрос:~#2}\vfill\rotatebox{90}{Команда:~#1}\end{minipage}}}%a card printer. The team and question numbers are increased by 1
 
-\newcommand{\totalteamsPO}{\chgkcard@teams}% total number of questions +1
+\newcommand{\totalteams}{\chgkcard@teams}% total number of questions
 % \newcommand{\totalteamsPR}{3}% total number of questions
-\newcommand{\totalquestsPO}{\chgkcard@questions}% total number of questions+1
+\newcommand{\totalquests}{\chgkcard@questions}% total number of questions+1
 % \newcommand{\totalquestsPR}{36}% total number of questions
 % \newcommand{\totalreservePO}{4}% total number of reserve blanks per team
 
@@ -52,21 +52,18 @@
 %by default we do not print numbers on reserve cards
 \ifchgkcard@printreserveteamnumbers\toggletrue{printreserveteamnumbersinner}\else\togglefalse{printreserveteamnumbersinner}\fi
 
-\newcommand{\teamoutput}{\iftoggle{printteamsatallinner}{\theteams}{}}
-\newcommand{\questoutput}{\iftoggle{printquestionsinner}{\thequest}{}}
+\newcommand{\teamoutput}{\iftoggle{printteamsatallinner}{\theteams}{}}%
+\newcommand{\questoutput}{\iftoggle{printquestionsinner}{\thequest}{}}%
 
-\newcommand{\dowereturn}{\stepcounter{stepTZ}\FPeval{\resu}{trunc(\thestepTZ-(4*trunc(\thestepTZ/4,0)),0)}\FPifeq{\resu}{0}{\newline}\else{}\fi}
+\newcommand{\dowereturn}{\stepcounter{stepTZ}\FPeval{\resu}{trunc(\thestepTZ-(4*trunc(\thestepTZ/4,0)),0)}\FPifeq{\resu}{0}{\newline}\else{}\fi}%increases the number of printed cards and add a newline if necessary
 
 \newcommand{\printblancs}{\ifXeTeX\setmainfont{Lucida Console}\else\fi%
-% \FPupn{totalteamsPOne}{8 1 +}%
-% \FPeval{\totalquestsPO}{\totalquests+1}%
 \newcounter{teams}%number of teams
 \newcounter{quest}%questions
 \newcounter{reservecounter}%number of additional blanks; printed without question numbers
-\newcounter{stepTZ}
-\setcounter{stepTZ}{0}
-%NB! some printers like to add margins, so the final view will not be exactly the same as in preview
-\noindent\forloop{teams}{1}{\value{teams}<\totalteamsPO}{\noindent\forloop{quest}{1}{\value{quest}<\totalquestsPO}{\blNew{\teamoutput}{\questoutput}\dowereturn}}\iftoggle{printreserveinner}{\noindent\forloop{teams}{1}{\value{teams}<\totalteamsPO}{\forloop{reservecounter}{0}{\value{reservecounter}<\chgkcard@reserve}{\blNew{\iftoggle{printreserveteamnumbersinner}{\theteams}{}}{}\dowereturn}}}{}}
+\newcounter{stepTZ}%
+\setcounter{stepTZ}{0}%
+\noindent\forloop{teams}{1}{\numexpr\value{teams}-1<\totalteams}{\noindent\forloop{quest}{1}{\numexpr\value{quest}-1<\totalquests}{\blNew{\teamoutput}{\questoutput}\dowereturn}}\iftoggle{printreserveinner}{\noindent\forloop{teams}{1}{\numexpr\value{teams}-1<\totalteams}{\forloop{reservecounter}{0}{\value{reservecounter}<\chgkcard@reserve}{\blNew{\iftoggle{printreserveteamnumbersinner}{\theteams}{}}{}\dowereturn}}}{}}
 
 \AtBeginDocument{\printblancs}
 
