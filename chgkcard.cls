@@ -3,6 +3,7 @@
 \RequirePackage{iftex}%detect the engine
 \DeclareStringOption[4]{teams}
 \DeclareStringOption[37]{questions}
+\DeclareStringOption[4]{reserve}
 \DeclareBoolOption{printreserve}
 \DeclareBoolOption[true]{printteamsatall}
 \DeclareBoolOption[true]{printquestions}
@@ -54,16 +55,18 @@
 \newcommand{\teamoutput}{\iftoggle{printteamsatallinner}{\theteams}{}}
 \newcommand{\questoutput}{\iftoggle{printquestionsinner}{\thequest}{}}
 
+\newcommand{\dowereturn}{\stepcounter{stepTZ}\FPeval{\resu}{trunc(\thestepTZ-(4*trunc(\thestepTZ/4,0)),0)}\FPifeq{\resu}{0}{\newline}\else{}\fi}
+
 \newcommand{\printblancs}{\ifXeTeX\setmainfont{Lucida Console}\else\fi%
 % \FPupn{totalteamsPOne}{8 1 +}%
 % \FPeval{\totalquestsPO}{\totalquests+1}%
 \newcounter{teams}%number of teams
 \newcounter{quest}%questions
-\newcounter{reserve}%number of additional blanks; printed without question numbers
+\newcounter{reservecounter}%number of additional blanks; printed without question numbers
 \newcounter{stepTZ}
 \setcounter{stepTZ}{0}
 %NB! some printers like to add margins, so the final view will not be exactly the same as in preview
-\noindent\forloop{teams}{1}{\value{teams}<\totalteamsPO}{\noindent\forloop{quest}{1}{\value{quest}<\totalquestsPO}{\blNew{\teamoutput}{\questoutput}\stepcounter{stepTZ}\FPeval{\resu}{trunc(\thestepTZ-(4*trunc(\thestepTZ/4,0)),0)}\FPifeq{\resu}{0}{\newline}\else{}\fi}}\iftoggle{printreserveinner}{\newline\noindent\forloop{teams}{1}{\value{teams}<\totalteamsPO}{\forloop{reserve}{0}{\value{reserve}<4}{\blNew{\iftoggle{printreserveteamnumbersinner}{\theteams}{}}{}}\newline}}{}}
+\noindent\forloop{teams}{1}{\value{teams}<\totalteamsPO}{\noindent\forloop{quest}{1}{\value{quest}<\totalquestsPO}{\blNew{\teamoutput}{\questoutput}\dowereturn}}\iftoggle{printreserveinner}{\noindent\forloop{teams}{1}{\value{teams}<\totalteamsPO}{\forloop{reservecounter}{0}{\value{reservecounter}<\chgkcard@reserve}{\blNew{\iftoggle{printreserveteamnumbersinner}{\theteams}{}}{}\dowereturn}}}{}}
 
 \AtBeginDocument{\printblancs}
 
