@@ -1,9 +1,9 @@
 \ProvidesClass{chgkcard}[2015/08/31 v0.1 class for creating ChGK tournaments blanks]
 \RequirePackage{kvoptions}%to process keyval options
 \RequirePackage{iftex}%detect the engine
-\DeclareStringOption[4]{teams}
-\DeclareStringOption[37]{questions}
-\DeclareStringOption[4]{reserve}
+\DeclareStringOption[2]{teams}
+\DeclareStringOption[36]{questions}
+\DeclareStringOption[3]{reserve}
 \DeclareBoolOption{printreserve}
 \DeclareBoolOption[true]{printteamsatall}
 \DeclareBoolOption[true]{printquestions}
