@@ -125,7 +125,9 @@ sympy-plots-for-*.tex/
 *.bak
 *.sav
 
+#TZ
 *.sublime*
 
 non.tex
 test.tex
+test.pdf
