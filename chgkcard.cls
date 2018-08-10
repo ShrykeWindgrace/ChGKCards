@@ -1,4 +1,4 @@
-\ProvidesClass{chgkcard}[2015/08/31 v0.1 class for creating ChGK tournaments blanks]
+\ProvidesClass{chgkcard}[2018/08/10 v0.2 class for creating ChGK tournaments blanks]
 \RequirePackage{kvoptions}%to process keyval options
 \RequirePackage{iftex}%detect the engine
 \DeclareStringOption[2]{teams}
@@ -9,7 +9,7 @@
 \DeclareBoolOption[true]{printquestions}
 \DeclareBoolOption{printreserveteamnumbers}
 \ProcessKeyvalOptions*
-\LoadClass[a4paper, 12pt]{article}
+\LoadClass[a4paper, 12pt, landscape]{article}
 \ifXeTeX
 	\RequirePackage{fontspec}
 \else
@@ -22,8 +22,9 @@
 \RequirePackage[nomessages]{fp}
 \RequirePackage{forloop}
 \RequirePackage{etoolbox}
+\RequirePackage{xcolor}
 \geometry{
-	total={210mm,297mm},
+	total={297mm,210mm},
 	left=0mm,
 	% right=0mm,
 	% top=0mm,
@@ -31,7 +32,9 @@
 }
 \topskip0pt
 
-\newcommand{\blNew}[2]{\noindent\fbox{\begin{minipage}[t][71.5mm][t]{50mm}\rotatebox[origin=rb]{90}{Вопрос:~#2}\vfill\rotatebox{90}{Команда:~#1}\end{minipage}}}%a card printer. The team and question numbers are increased by 1
+\newcommand{\imago}{\[\textcolor{lightgray}{\hat{(}\grave{\odot}{\scriptstyle\vee}\acute{\odot}\hat{)}}\]} % just an ascii owl; can be replaced with a proper background image
+
+\newcommand{\blNew}[2]{\noindent\fbox{\begin{minipage}[t][50mm][t]{71.5mm}{Команда:~#1}\hfill{Вопрос:~#2}\vfill\imago\vfill\hspace{0pt}\end{minipage}}}%a card printer with an owl. The team and question numbers are increased by 1
 
 \newcommand{\totalteams}{\chgkcard@teams}% total number of questions
 % \newcommand{\totalteamsPR}{3}% total number of questions
