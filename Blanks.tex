@@ -1,4 +1,4 @@
-\documentclass[a4paper, 12pt]{article}
+\documentclass[a4paper, 12pt, landscape]{article}
 % \usepackage[utf8]{inputenc}
 \usepackage{fontspec}
 \usepackage[russian]{babel}
@@ -7,18 +7,23 @@
 \usepackage[nomessages]{fp}
 \usepackage{forloop}
 \usepackage{etoolbox}
+\usepackage{xcolor}
+% \usepackage{background}
+% \backgroundsetup{contents=Confidential,color=blue}
+% \backgroundsetup{color=blue}
 \geometry{
-	total={210mm,297mm},
+	total={297mm,210mm},
 	left=0mm,
 	% right=0mm,
 	% top=0mm,
 	bottom=0mm,
 }
 \topskip0pt
+\newcommand{\imago}{\[\textcolor{lightgray}{\hat{(}\grave{\odot}{\scriptstyle\vee}\acute{\odot}\hat{)}}\]}
 
-\newcommand{\blNew}[2]{\noindent\fbox{\begin{minipage}[t][71.5mm][t]{50mm}\rotatebox[origin=rb]{90}{Вопрос:~#2}\vfill\rotatebox{90}{Команда:~#1}\end{minipage}}}%
+\newcommand{\blNew}[2]{\noindent\fbox{\begin{minipage}[t][50mm][t]{71.75mm}{Вопрос:~#2}\hfill{Команда:~#1}\vfill\imago\vfill\hspace{0pt}\end{minipage}}}%
 
-\newcommand{\totalteamsPO}{7}% total number of questions +1
+\newcommand{\totalteamsPO}{7}% total number of teams +1
 % \newcommand{\totalteamsPR}{3}% total number of questions
 \newcommand{\totalquestsPO}{7}% total number of questions+1
 % \newcommand{\totalquestsPR}{36}% total number of questions
@@ -26,7 +31,7 @@
 
 \newtoggle{printreserve}
 \togglefalse{printreserve}
-\toggletrue{printreserve} %uncomment this line if you want to print reserve blanks for teams
+% \toggletrue{printreserve} %uncomment this line if you want to print reserve blanks for teams
 \newtoggle{printreserveTeamNumbers} %has no effect if printreserve==false. 
 \togglefalse{printreserveTeamNumbers}
 % \toggletrue{printreserveTeamNumbers} %uncomment this line if you want to print team numbers on reserve blanks
