@@ -66,7 +66,7 @@
 \newcounter{reservecounter}%number of additional blanks; printed without question numbers
 \newcounter{stepTZ}%
 \setcounter{stepTZ}{0}%
-\noindent\forloop{teams}{1}{\numexpr\value{teams}-1<\totalteams}{\noindent\forloop{quest}{1}{\numexpr\value{quest}-1<\totalquests}{\blNew{\teamoutput}{\questoutput}\dowereturn}}\iftoggle{printreserveinner}{\noindent\forloop{teams}{1}{\numexpr\value{teams}-1<\totalteams}{\forloop{reservecounter}{0}{\value{reservecounter}<\chgkcard@reserve}{\blNew{\iftoggle{printreserveteamnumbersinner}{\theteams}{}}{}\dowereturn}}}{}}
+\noindent\forloop{teams}{1}{\numexpr\value{teams}-1<\totalteams}{\noindent\forloop{quest}{1}{\numexpr\value{quest}-1<\totalquests}{\blNew{\teamoutput}{\questoutput}\dowereturn}}\iftoggle{printreserveinner}{\noindent\forloop{teams}{1}{\numexpr\value{teams}-1<\totalteams}{\forloop{reservecounter}{0}{\value{reservecounter}<\chgkcard@reserve}{\blNew{\iftoggle{printreserveteamnumbersinner}{\theteams}{}}{\phantom{99}}\dowereturn}}}{}}
 
 \AtBeginDocument{\printblancs}
 
