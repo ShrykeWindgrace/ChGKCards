@@ -29,6 +29,7 @@ executable ChGKCards
                      , optparse-applicative
                      , typed-process
                      , bytestring
+                     , directory
 
                      
   default-language:    Haskell2010

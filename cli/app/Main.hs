@@ -9,14 +9,23 @@ import Options.Applicative (Parser, ParserInfo, help, long, showDefault,
 import           Control.Applicative (optional)
 import           System.Process.Typed 
 import           Data.ByteString.Lazy.Char8 (pack)
+import           System.Directory
+import           Control.Monad (unless)
 
 main :: IO ()
 main = execParser optionsH >>= main'
 
 main' :: CardConfig -> IO ()
-main' = runProcess_ . pipeConfig
+main' cc = do
+    ex <- doesFileExist styleFile
+    unless ex $ putStrLn $ "Warning: did not see style file " ++ styleFile ++ "; hope that pdflatex will find on itself"
+    runProcess_ $ pipeConfig cc
 
  
+styleFile :: FilePath
+styleFile = "chgkcard.cls"
+
+
 pdfLaTeXprocess :: ProcessConfig () () ()
 pdfLaTeXprocess = proc "pdflatex" ["--jobname", "Cards", "--"]
 
