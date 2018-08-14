@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings#-}
+
 module Main where
 
 import Cli 
@@ -5,26 +7,29 @@ import Options.Applicative (Parser, ParserInfo, help, long, showDefault,
                             flag,info, value,helper,
                              header, fullDesc, progDesc, execParser, auto, option)
 import           Control.Applicative (optional)
-import           System.Process.Typed       (runProcess_, shell)
+import           System.Process.Typed 
+import           Data.ByteString.Lazy.Char8 (pack)
 
 main :: IO ()
-main = 
-    execParser optionsH >>= main'
+main = execParser optionsH >>= main'
 
 main' :: CardConfig -> IO ()
-main' cc = runProcess_ $ shell $ unwords ["echo", texGenerator cc, "|", "pdflatex", "--jobname", "Cards", "--"]
+main' = runProcess_ . pipeConfig
+
+ 
+pdfLaTeXprocess :: ProcessConfig () () ()
+pdfLaTeXprocess = proc "pdflatex" ["--jobname", "Cards", "--"]
 
 
--- echoProcess :: [String] -> ProcessConfig () () ()
--- echoProcess = shell "echo" 
-
+pipeConfig :: CardConfig ->  ProcessConfig  () () ()
+pipeConfig cc = setStdin (byteStringInput $ pack $ texGenerator cc) pdfLaTeXprocess
 
 
 texGenerator :: CardConfig -> String
 texGenerator cc = 
-    "\\\\\\\\documentclass" ++
+    "\\documentclass" ++
     "[" ++ show cc ++ "]" ++
-    "{chgkcard}\\\\\\\\begin{document}\\\\\\\\end{document}"
+    "{chgkcard}\\begin{document}\\end{document}"
 
 
 optionsH :: ParserInfo CardConfig
