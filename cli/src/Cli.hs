@@ -1,4 +1,4 @@
-module Cli (CardConfig (..), defaultConfig) where
+module Cli (CardConfig (..), defaultConfig, possibleConfigs, toFName) where
 
 import Data.List
 import Data.Char
@@ -39,3 +39,23 @@ defaultConfig = CardConfig {
     printTeams = True,
     printQuests = True,
     printReserveTN = True}
+
+
+possibleConfigs :: [CardConfig]
+possibleConfigs =
+    pure CardConfig <*>
+    [1..6] <*>
+    [36, 45] <*>
+    [Just 3, Nothing] <*>
+    [True, False] <*>
+    [True] <*>
+    [True]
+
+toFName :: CardConfig -> String
+toFName (CardConfig tc qc res pt _ _) =
+    "cards" <>
+    "T" <> show tc <>
+    "Q" <> show qc <>
+    maybe "R0" (\r -> "R" <> show r) res <>
+    if pt then "T" else "N" <>
+    ".pdf"
