@@ -133,3 +133,4 @@ test.tex
 test.pdf
 .idea
 .stack-work
+cli/*.cls
