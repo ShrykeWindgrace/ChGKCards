@@ -34,7 +34,7 @@
 
 \newcommand{\imago}{\[\textcolor{lightgray}{\hat{(}\grave{\odot}{\scriptstyle\vee}\acute{\odot}\hat{)}}\]} % just an ascii owl; can be replaced with a proper background image
 
-\newcommand{\blNew}[2]{\noindent\fbox{\begin{minipage}[t][50mm][t]{71.5mm}{Команда:~#1}\hfill{Вопрос:~#2}\vfill\imago\vfill\hspace{0pt}\end{minipage}}}%a card printer with an owl. The team and question numbers are increased by 1
+\newcommand{\blNew}[2]{\noindent\fbox{\begin{minipage}[t][66.7mm][t]{97mm}{Команда:~#1}\hfill{Вопрос:~#2\phantom{9}}\vfill\imago\vfill\hspace{0pt}\end{minipage}}}%a card printer with an owl. The team and question numbers are increased by 1
 
 \newcommand{\totalteams}{\chgkcard@teams}% total number of questions
 % \newcommand{\totalteamsPR}{3}% total number of questions
@@ -58,7 +58,7 @@
 \newcommand{\teamoutput}{\iftoggle{printteamsatallinner}{\theteams}{}}%
 \newcommand{\questoutput}{\iftoggle{printquestionsinner}{\thequest}{}}%
 
-\newcommand{\dowereturn}{\stepcounter{stepTZ}\FPeval{\resu}{trunc(\thestepTZ-(4*trunc(\thestepTZ/4,0)),0)}\FPifeq{\resu}{0}{\newline}\else{}\fi}%increases the number of printed cards and add a newline if necessary
+\newcommand{\dowereturn}{\stepcounter{stepTZ}\FPeval{\resu}{trunc(\thestepTZ-(3*trunc(\thestepTZ/3,0)),0)}\FPifeq{\resu}{0}{\newline}\else{}\fi}%increases the number of printed cards and add a newline if necessary
 
 \newcommand{\printblancs}{\ifXeTeX\setmainfont{Lucida Console}\else\fi%
 \newcounter{teams}%number of teams
