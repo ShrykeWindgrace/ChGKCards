@@ -23,6 +23,7 @@
 \RequirePackage{forloop}
 \RequirePackage{etoolbox}
 \RequirePackage{xcolor}
+\RequirePackage{transparent}
 \geometry{
 	total={297mm,210mm},
 	left=0mm,
@@ -34,7 +35,7 @@
 
 \newcommand{\imago}{\[\textcolor{lightgray}{\hat{(}\grave{\odot}{\scriptstyle\vee}\acute{\odot}\hat{)}}\]} % just an ascii owl; can be replaced with a proper background image
 
-\newcommand{\blNew}[2]{\noindent\fbox{\begin{minipage}[t][67.2mm][t]{97mm}{Команда:~#1}\hfill{Вопрос:~#2\phantom{9}}\vfill\imago\vfill\hspace{0pt}\end{minipage}}}%a card printer with an owl. The team and question numbers are increased by 1
+\newcommand{\blNew}[2]{\noindent\fbox{\begin{minipage}[t][67.2mm][t]{97mm}{Команда:~#1}\hfill{Вопрос:~#2\phantom{9}}\vfill{\transparent{0.1}\begin{center}\includegraphics[width=0.2\textwidth]{ulitka.png}\end{center}}\vfill\hspace{0pt}\end{minipage}}}%a card printer with an owl. The team and question numbers are increased by 1
 
 \newcommand{\totalteams}{\chgkcard@teams}% total number of questions
 % \newcommand{\totalteamsPR}{3}% total number of questions
