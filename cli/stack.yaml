@@ -1,1 +1,5 @@
-resolver: lts-12.18
+---
+resolver: lts-20.26  # latest for 9.2.8
+
+nix:
+  enable: true
