@@ -1,6 +1,6 @@
 module Cli (CardConfig (..), defaultConfig, possibleConfigs, toFName) where
 
-import Data.List
+import Data.List (intercalate)
 import Data.Char
 
 
@@ -14,7 +14,7 @@ data CardConfig = CardConfig {
 }
 
 instance Show CardConfig where
-    show (CardConfig tc qc res pt pq pr) = 
+    show (CardConfig tc qc res pt pq pr) =
         intercalate "," $ [
             "teams=" ++ show tc,
             "questions=" ++ show qc,
@@ -43,7 +43,7 @@ defaultConfig = CardConfig {
 
 possibleConfigs :: [CardConfig]
 possibleConfigs =
-    pure CardConfig <*>
+    CardConfig <$>
     [1..6] <*>
     [36, 45] <*>
     [Just 3, Nothing] <*>
@@ -59,3 +59,4 @@ toFName (CardConfig tc qc res pt _ _) =
     maybe "R0" (\r -> "R" <> show r) res <>
     if pt then "T" else "N" <>
     ".pdf"
+

@@ -2,12 +2,12 @@
 
 module Main where
 
-import Cli 
+import Cli
 import Options.Applicative (Parser, ParserInfo, help, long, showDefault,
                             flag,info, value,helper,
                              header, fullDesc, progDesc, execParser, auto, option)
 import           Control.Applicative (optional)
-import           System.Process.Typed 
+import           System.Process.Typed
 import           Data.ByteString.Lazy.Char8 (pack)
 import           System.Directory
 import           Control.Monad (unless)
@@ -21,7 +21,7 @@ main' cc = do
     unless ex $ putStrLn $ "Warning: did not see style file " ++ styleFile ++ "; hope that pdflatex will find on itself"
     runProcess_ $ pipeConfig cc
 
- 
+
 styleFile :: FilePath
 styleFile = "chgkcard.cls"
 
@@ -35,7 +35,7 @@ pipeConfig cc = setStdin (byteStringInput $ pack $ texGenerator cc) pdfLaTeXproc
 
 
 texGenerator :: CardConfig -> String
-texGenerator cc = 
+texGenerator cc =
     "\\documentclass" ++
     "[" ++ show cc ++ "]" ++
     "{chgkcard}\\begin{document}\\end{document}"
